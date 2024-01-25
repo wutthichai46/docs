@@ -37,13 +37,14 @@ import { fromMarkdown } from 'mdast-util-from-markdown'
 import { toHast } from 'mdast-util-to-hast'
 import { header } from './code-header.js'
 
-const languages = yaml.load(fs.readFileSync('./data/variables/code-languages.yml', 'utf8'))
+const languages = yaml.load(fs.readFileSync('./data/code-languages.yml', 'utf8'))
 
 const commentRegexes = {
   number: /^\s*#\s*/, // also known has hash or sharp; but the unicode name is "number sign"
   slash: /^\s*\/\/\s*/,
   xml: /^\s*<!--\s*/,
   percent: /^\s*%%?\s*/,
+  hyphen: /^\s*--\s*/,
 }
 
 const matcher = (node) =>
@@ -77,16 +78,26 @@ function createAnnotatedNode(node) {
 
 function validate(lang, code) {
   if (!lang) {
-    throw new Error('No language specific for annotate info string')
+    throw new Error('No language specific for annotate info string.')
   }
   if (!languages[lang]) {
     throw new Error(
-      `Unsupported language for annotate info string. Please use one of: ${Object.keys(languages)}`
+      `Unsupported language for annotate info string. Please use one of: ${Object.keys(
+        languages,
+      )}.`,
     )
   }
+
+  const firstLine = code.split('\n')[0]
+  if (!getRegexp(lang).test(firstLine)) {
+    throw new Error(
+      `Make sure the annotated code example starts with a single line annotation. It's currently starting with: ${firstLine}`,
+    )
+  }
+
   if (!new RegExp(getRegexp(lang), 'm').test(code)) {
     throw new Error(
-      'Make sure the comment syntax matches the language. Use single-line comments only.'
+      'Make sure the comment syntax matches the language. Use single-line comments only.',
     )
   }
 }
@@ -124,10 +135,9 @@ function getSubnav() {
       name: 'annotate-display',
       value: 'beside',
       type: 'button',
-      ariaLabel: 'Display annotations beside the code sample',
-      className: 'BtnGroup-item btn btn-sm tooltipped tooltipped-nw',
+      className: 'BtnGroup-item btn btn-sm',
     },
-    ['Beside']
+    ['Beside'],
   )
   const inlineBtn = h(
     'button',
@@ -135,10 +145,9 @@ function getSubnav() {
       name: 'annotate-display',
       value: 'inline',
       type: 'button',
-      ariaLabel: 'Display annotations inline as comments of the code sample',
-      className: 'BtnGroup-item btn btn-sm tooltipped tooltipped-nw',
+      className: 'BtnGroup-item btn btn-sm',
     },
-    ['Inline']
+    ['Inline'],
   )
 
   return h('div', { className: 'BtnGroup' }, [besideBtn, inlineBtn])
@@ -158,20 +167,20 @@ function template({ lang, code, rows }) {
             'div',
             { className: 'annotate-code' },
             // pre > code matches the mdast -> hast tree of a regular fenced code block.
-            h('pre', h('code', { className: `language-${lang}` }, code.join('\n')))
+            h('pre', h('code', { className: `language-${lang}` }, code.join('\n'))),
           ),
           h(
             'div',
             { className: 'annotate-note' },
-            mdToHast(note.map(removeComment(lang)).join('\n'))
+            mdToHast(note.map(removeComment(lang)).join('\n')),
           ),
-        ])
-      )
+        ]),
+      ),
     ),
     h('div', { className: 'annotate-inline' }, [
       // pre > code matches the mdast -> hast tree of a regular fenced code block.
       h('pre', h('code', { className: `language-${lang}` }, code)),
-    ])
+    ]),
   )
 }
 

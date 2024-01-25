@@ -57,11 +57,11 @@ If you already have a profile README, you can edit it from your profile page.
 
 You can include images in your communication on {% data variables.product.prodname_dotcom %}. Here, you'll add a responsive image, such as a banner, to the top of your {% ifversion ghae %}gist{% else %}profile README{% endif %}.
 
-By using the HTML `<picture>` element with the `prefers-color-scheme` media feature, you can add an image that changes depending on whether a visitor is using light or dark mode. For more information, see "[AUTOTITLE](/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-personal-account-settings/managing-your-theme-settings)."
+By using the HTML `<picture>` element with the `prefers-color-scheme` media feature, you can add an image that changes depending on whether a visitor is using light or dark mode. For more information, see "[AUTOTITLE](/get-started/accessibility/managing-your-theme-settings)."
 
 1. Copy and paste the following markup into your {% ifversion ghae %}`about-me.md`{% else %}`README.md`{% endif %} file.
 
-   ```HTML copy
+   ```html copy
    <picture>
     <source media="(prefers-color-scheme: dark)" srcset="YOUR-DARKMODE-IMAGE">
     <source media="(prefers-color-scheme: light)" srcset="YOUR-LIGHTMODE-IMAGE">
@@ -94,7 +94,7 @@ You can use Markdown tables to organize information. Here, you'll use a table to
 1. Return to the **Edit {% ifversion ghae %}new {% endif %}file** tab.
 1. To introduce yourself, two lines below the `</picture>` tag, add an `## About me` header and a short paragraph about yourself, like the following.
 
-   ```Markdown
+   ```markdown
    ## About me
 
    Hi, I'm Mona. You might recognize me as {% data variables.product.prodname_dotcom %}'s mascot.
@@ -102,7 +102,7 @@ You can use Markdown tables to organize information. Here, you'll use a table to
 
 1. Two lines below this paragraph, insert a table by copying and pasting the following markup.
 
-   ```Markdown copy
+   ```markdown copy
    | Rank | THING-TO-RANK |
    |-----:|---------------|
    |     1|               |
@@ -117,14 +117,14 @@ For more information, see "[AUTOTITLE](/get-started/writing-on-github/working-wi
 
 ### Example of a table
 
-```Markdown
+```markdown
 ## About me
 
 Hi, I'm Mona. You might recognize me as {% data variables.product.prodname_dotcom %}'s mascot.
 
 | Rank | Languages |
 |-----:|-----------|
-|     1| Javascript|
+|     1| JavaScript|
 |     2| Python    |
 |     3| SQL       |
 ```
@@ -139,7 +139,7 @@ To keep your content tidy, you can use the `<details>` tag to create an expandib
 
 1. To create a collapsed section for the table you created, wrap your table in `<details>` tags like in the following example.
 
-   ```HTML copy
+   ```html copy
    <details>
    <summary>My top THINGS-TO-RANK</summary>
 
@@ -151,7 +151,7 @@ To keep your content tidy, you can use the `<details>` tag to create an expandib
 1. Between the `<summary>` tags, replace `THINGS-TO-RANK` with whatever you ranked in your table.
 1. Optionally, to make the section display as open by default, add the `open` attribute to the `<details>` tag.
 
-   ```HTML
+   ```html
    <details open>
    ```
 
@@ -159,13 +159,13 @@ To keep your content tidy, you can use the `<details>` tag to create an expandib
 
 ### Example of a collapsed section
 
-```HTML
+```html
 <details>
 <summary>My top languages</summary>
 
 | Rank | Languages |
 |-----:|-----------|
-|     1| Javascript|
+|     1| JavaScript|
 |     2| Python    |
 |     3| SQL       |
 
@@ -182,13 +182,13 @@ Markdown has many other options for formatting your content. Here, you'll add a 
 
 1. At the bottom of your file, two lines below the `</details>` tag, add a horizontal rule by typing three or more dashes.
 
-   ```Markdown
+   ```markdown
    ---
    ```
 
 1. Below the `---` line, add a quote by typing markup like the following.
 
-   ```Markdown
+   ```markdown
    > QUOTE
    ```
 
@@ -197,7 +197,7 @@ Markdown has many other options for formatting your content. Here, you'll add a 
 
 ### Example of a quote
 
-```Markdown
+```markdown
 ---
 > If we pull together and commit ourselves, then we can push through anything.
 
@@ -245,4 +245,4 @@ Committing directly to the `main` branch will make your changes visible to any v
 ## Next steps
 
 - Continue to learn about advanced formatting features. For example, see {% ifversion fpt or ghec %}"[AUTOTITLE](/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)" and {% endif %}"[AUTOTITLE](/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)."
-- Use your new skills as you communicate across GitHub, in issues, pull requests, and discussions. For more information, see "[AUTOTITLE](/get-started/quickstart/communicating-on-github)."
+- Use your new skills as you communicate across GitHub, in issues, pull requests, and discussions. For more information, see "[AUTOTITLE](/get-started/using-github/communicating-on-github)."

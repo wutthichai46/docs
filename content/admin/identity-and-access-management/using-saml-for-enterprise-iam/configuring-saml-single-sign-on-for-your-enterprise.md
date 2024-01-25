@@ -1,12 +1,11 @@
 ---
 title: Configuring SAML single sign-on for your enterprise
 shortTitle: Configure SAML SSO
-intro: 'You can control and secure access to {% ifversion ghec %}resources like repositories, issues, and pull requests within your enterprise''s organizations{% elsif ghes %}{% data variables.location.product_location %}{% elsif ghae %}your enterprise on {% data variables.product.prodname_ghe_managed %}{% endif %} by {% ifversion ghec %}enforcing{% elsif ghes or ghae %}configuring{% endif %} SAML single sign-on (SSO) through your identity provider (IdP).'
-permissions: '{% ifversion ghes %}Site administrators{% elsif ghec or ghae %}Enterprise owners{% endif %} can configure SAML SSO for {% ifversion ghec or ghae %}an enterprise on {% data variables.product.product_name %}{% elsif ghes %}a {% data variables.product.product_name %} instance{% endif %}.'
+intro: 'You can control and secure access to {% ifversion ghec %}resources like repositories, issues, and pull requests within your enterprise''s organizations{% elsif ghes %}{% data variables.location.product_location %}{% elsif ghae %}your enterprise on {% data variables.product.prodname_ghe_managed %}{% endif %} by {% ifversion ghec %}enforcing{% elsif ghes %}configuring{% endif %} SAML single sign-on (SSO) through your identity provider (IdP).'
+permissions: '{% ifversion ghes %}Site administrators{% elsif ghec %}Enterprise owners{% endif %} can configure SAML SSO for {% ifversion ghec %}an enterprise on {% data variables.product.product_name %}{% elsif ghes %}a {% data variables.product.product_name %} instance{% endif %}.'
 versions:
   ghec: '*'
   ghes: '*'
-  ghae: '*'
 type: how_to
 topics:
   - Accounts
@@ -45,7 +44,7 @@ For more information, see "[AUTOTITLE](/organizations/managing-saml-single-sign-
 
 {% data reusables.apps.reauthorize-apps-saml %}
 
-{% elsif ghes or ghae %}
+{% elsif ghes %}
 
 SAML SSO allows you to centrally control and secure access to {% data variables.location.product_location %} from your SAML IdP. When an unauthenticated user visits {% data variables.location.product_location %} in a browser, {% data variables.product.product_name %} will redirect the user to your SAML IdP to authenticate. After the user successfully authenticates with an account on the IdP, the IdP redirects the user back to {% data variables.location.product_location %}. {% data variables.product.product_name %} validates the response from your IdP, then grants access to the user.
 
@@ -69,9 +68,19 @@ After a user successfully authenticates on your IdP, the user's SAML session for
 
 {% ifversion ghec %}
 
+For more information about connecting Azure AD to your enterprise, see [Tutorial: Microsoft Entra SSO integration with GitHub Enterprise Cloud - Enterprise Account](https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-enterprise-cloud-enterprise-account-tutorial) in Microsoft Docs.
+
+{% elsif ghes %}
+
+For more information about connecting Azure AD to your enterprise, see [Tutorial: Microsoft Entra SSO integration with GitHub Enterprise Server](https://learn.microsoft.com/en-us/entra/identity/saas-apps/github-ae-tutorial) in Microsoft Docs.
+
 ## Username considerations with SAML
 
-{% ifversion ghec %}If you use {% data variables.product.prodname_emus %}, {% endif %}{% data reusables.enterprise_user_management.consider-usernames-for-external-authentication %} For more information, see "[AUTOTITLE](/admin/identity-and-access-management/managing-iam-for-your-enterprise/username-considerations-for-external-authentication)."
+{% data reusables.enterprise_user_management.consider-usernames-for-external-authentication %} For more information, see "[AUTOTITLE](/admin/identity-and-access-management/managing-iam-for-your-enterprise/username-considerations-for-external-authentication)."
+
+{% endif %}
+
+{% ifversion ghec %}
 
 ## Enforcing SAML single-sign on for organizations in your enterprise account
 
@@ -90,7 +99,7 @@ For more detailed information about how to enable SAML using Okta, see "[AUTOTIT
 1. Optionally, in the **Issuer** field, type your SAML issuer URL to verify the authenticity of sent messages.
 1. Under **Public Certificate**, paste a certificate to verify SAML responses.
 {% data reusables.saml.edit-signature-and-digest-methods %}
-1. Before enabling SAML SSO for your enterprise, click **Test SAML configuration** to ensure that the information you've entered is correct.
+1. Before enabling SAML SSO for your enterprise, to ensure that the information you've entered is correct, click **Test SAML configuration** . {% data reusables.saml.test-must-succeed %}
 1. Click **Save**.
 {% data reusables.enterprise-accounts.download-recovery-codes %}
 

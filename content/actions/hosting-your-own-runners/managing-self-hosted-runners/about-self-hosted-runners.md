@@ -12,12 +12,12 @@ versions:
   ghec: '*'
 type: overview
 ---
- 
+
 {% data reusables.actions.enterprise-github-hosted-runners %}
 
 ## About self-hosted runners
 
-A self-hosted runner is a system that you deploy and manage to execute jobs from {% data variables.product.prodname_actions %} on {% ifversion ghae or ghec %}{% data variables.product.product_name %}{% else %}{% data variables.location.product_location %}{% endif %}. For more information about {% data variables.product.prodname_actions %}, see "[AUTOTITLE](/actions/learn-github-actions/understanding-github-actions){% ifversion fpt %}."{% elsif ghec or ghes or ghae %}" and "[AUTOTITLE](/admin/github-actions/getting-started-with-github-actions-for-your-enterprise/about-github-actions-for-enterprises)."{% endif %}
+A self-hosted runner is a system that you deploy and manage to execute jobs from {% data variables.product.prodname_actions %} on {% ifversion ghae or ghec %}{% data variables.product.product_name %}{% else %}{% data variables.location.product_location %}{% endif %}. For more information about {% data variables.product.prodname_actions %}, see "[AUTOTITLE](/actions/learn-github-actions/understanding-github-actions){% ifversion fpt %}."{% elsif ghec or ghes %}" and "[AUTOTITLE](/admin/github-actions/getting-started-with-github-actions-for-your-enterprise/about-github-actions-for-enterprises)."{% endif %}
 
 {% data reusables.actions.self-hosted-runner-description %} {% data reusables.actions.self-hosted-runner-locations %}
 
@@ -57,7 +57,7 @@ For more information about installing and using self-hosted runners, see "[AUTOT
 - Can use cloud services or local machines that you already pay for.
 - Are customizable to your hardware, operating system, software, and security requirements.
 - Don't need to have a clean instance for every job execution.
-- Are free to use with {% data variables.product.prodname_actions %}, but you are responsible for the cost of maintaining your runner machines.{% ifversion ghec or ghes or ghae %}
+- Are free to use with {% data variables.product.prodname_actions %}, but you are responsible for the cost of maintaining your runner machines.{% ifversion ghec or ghes %}
 - Can be organized into groups to restrict access to specific {% ifversion restrict-groups-to-workflows %}workflows, {% endif %}organizations and repositories. For more information, see "[AUTOTITLE](/actions/hosting-your-own-runners/managing-self-hosted-runners/managing-access-to-self-hosted-runners-using-groups)."{% endif %}
 
 ## Requirements for self-hosted runner machines
@@ -78,7 +78,7 @@ You can automatically increase or decrease the number of self-hosted runners in 
 There are some limits on {% data variables.product.prodname_actions %} usage when using self-hosted runners. These limits are subject to change.
 
 {% data reusables.actions.usage-workflow-run-time %}
-- **Job queue time** - Each job for self-hosted runners can be queued for a maximum of 24 hours. If a self-hosted runner does not start executing the job within this limit, the job is terminated and fails to complete.
+- **Job queue time** - Each job for self-hosted runners that has been queued for at least 24 hours will be canceled. The actual time in queue can reach up to 48 hours before cancellation occurs. If a self-hosted runner does not start executing the job within this limit, the job is terminated and fails to complete.
 {% data reusables.actions.usage-api-requests %}
 - **Job matrix** - {% data reusables.actions.usage-matrix-limits %}
 {% data reusables.actions.usage-workflow-queue-limits %}
@@ -116,7 +116,7 @@ The following operating systems are supported for the self-hosted runner applica
 
 ### macOS
 
-- macOS 10.13 (High Sierra) or later
+- macOS 11.0 (Big Sur) or later
 
 ### Architectures
 
@@ -144,11 +144,9 @@ The self-hosted runner connects to {% data variables.product.product_name %} to 
 
 {% ifversion fpt or ghec %}
 Since the self-hosted runner opens a connection to {% data variables.location.product_location %}, you do not need to allow {% data variables.product.prodname_dotcom %} to make inbound connections to your self-hosted runner.
-{% elsif ghes or ghae %}
+{% elsif ghes %}
 Only an outbound connection from the runner to {% data variables.location.product_location %} is required. There is no need for an inbound connection from {% data variables.location.product_location %} to the runner.
-{% ifversion ghes > 3.4%}
 For caching to work, the runner must be able to communicate with the blob storage and directly download content from it.
-{%- endif %}
 {%- endif %}
 
 {% ifversion ghes %}
@@ -175,7 +173,7 @@ You must ensure that the machine has the appropriate network access to communica
 
 **Needed for essential operations:**
 
-```
+```shell copy
 github.com
 api.github.com
 *.actions.githubusercontent.com
@@ -183,41 +181,35 @@ api.github.com
 
 **Needed for downloading actions:**
 
-```
+```shell copy
 codeload.github.com
 ```
 
-**Needed for uploading/downloading job summaries and logs**
+**Needed for uploading/downloading job summaries, logs, workflow artifacts, and caches:**
 
-```
-actions-results-receiver-production.githubapp.com
-productionresultssa*.blob.core.windows.net
+```shell copy
+results-receiver.actions.githubusercontent.com
+*.blob.core.windows.net
 ```
 
 **Needed for runner version updates:**
 
-```
+```shell copy
 objects.githubusercontent.com
 objects-origin.githubusercontent.com
 github-releases.githubusercontent.com
 github-registry-files.githubusercontent.com
 ```
 
-**Needed for uploading/downloading caches and workflow artifacts:**
-
-```
-*.blob.core.windows.net
-```
-
 **Needed for retrieving OIDC tokens:**
 
-```
+```shell copy
 *.actions.githubusercontent.com
 ```
 
 **Needed for downloading or publishing packages or containers to {% data variables.product.prodname_dotcom %} Packages:**
 
-```
+```shell copy
 *.pkg.github.com
 ghcr.io
 ```
@@ -240,7 +232,7 @@ You can also use self-hosted runners with a proxy server. For more information, 
 
 For more information about troubleshooting common network connectivity issues, see "[AUTOTITLE](/actions/hosting-your-own-runners/managing-self-hosted-runners/monitoring-and-troubleshooting-self-hosted-runners#troubleshooting-network-connectivity)."
 
-{% ifversion ghes or ghae %}
+{% ifversion ghes %}
 
 ## Communication between self-hosted runners and {% data variables.product.prodname_dotcom_the_website %}
 
@@ -248,7 +240,7 @@ Self-hosted runners do not need to connect to {% data variables.product.prodname
 
 If you have enabled automatic access to {% data variables.product.prodname_dotcom_the_website %} actions, then the self-hosted runner will connect directly to {% data variables.product.prodname_dotcom_the_website %} to download actions. You must ensure that the machine has the appropriate network access to communicate with the {% data variables.product.prodname_dotcom %} URLs listed below.
 
-```
+```shell copy
 github.com
 api.github.com
 codeload.github.com
@@ -293,7 +285,7 @@ For more information about security hardening for self-hosted runners, see "[AUT
 
 {% endif %}
 
-{% ifversion ghec or ghes or ghae %}
+{% ifversion ghec or ghes %}
 
 ## Further reading
 

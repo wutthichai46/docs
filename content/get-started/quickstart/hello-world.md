@@ -70,7 +70,16 @@ Here at {% data variables.product.product_name %}, our developers, writers, and 
 
 1. Click the **Code** tab of your `hello-world` repository.
 1. Above the file list, click the dropdown menu that says **main**.
+
+{% ifversion global-nav-update %}
+
+   ![Screenshot of the repository page. A dropdown menu, labeled with a branch icon and "main", is highlighted with an orange outline.](/assets/images/help/branches/branch-selection-dropdown-global-nav-update.png)
+
+{% else %}
+
    ![Screenshot of the repository page. A dropdown menu, labeled with a branch icon and "main", is highlighted with an orange outline.](/assets/images/help/branches/branch-selection-dropdown.png)
+
+{% endif %}
 
 1. Type a branch name, `readme-edits`, into the text box.
 1. Click **Create branch: readme-edits from main**.
@@ -87,14 +96,9 @@ You can make and save changes to the files in your repository. On {% data variab
 1. Under the `readme-edits` branch you created, click the _README.md_ file.
 1. To edit the file, click {% octicon "pencil" aria-label="Edit file" %}.
 1. In the editor, write a bit about yourself. Try using different Markdown elements.
-{% ifversion code-search-code-view %}
-1. Click **Commit changes...**.
-1. In the "Propose changes" box, write a commit message that describes your changes.
-1. Click **Propose changes**.
-{% else %}
+{% ifversion code-search-code-view %}1. Click **Commit changes...**.{% endif %}
 1. In the "Commit changes" box, write a commit message that describes your changes.
 1. Click **Commit changes**.
-{% endif %}
 
 These changes will be made only to the README file on your `readme-edits` branch, so now this branch contains content that's different from `main`.
 
@@ -119,7 +123,7 @@ You can even open pull requests in your own repository and merge them yourself. 
 
 1. Click **Create pull request**.
 1. Give your pull request a title and write a brief description of your changes. You can include emojis and drag and drop images and gifs.
-1. Optionally, to the right of your title and description, click the {% octicon "gear" aria-label="The Gear icon" %} next to **Reviewers**. **Assignees**, **Labels**, **Projects**, or **Milestone** to add any of these options to your pull request. You do not need to add any yet, but these options offer different ways to collaborate using pull requests. For more information, see "[AUTOTITLE](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)."
+1. Optionally, to the right of your title and description, click the {% octicon "gear" aria-label="The Gear icon" %} next to **Reviewers**, **Assignees**, **Labels**, **Projects**, or **Milestone** to add any of these options to your pull request. You do not need to add any yet, but these options offer different ways to collaborate using pull requests. For more information, see "[AUTOTITLE](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests)."
 1. Click **Create pull request**.
 
 Your collaborators can now review your edits and make suggestions.
@@ -149,4 +153,4 @@ Here's what you accomplished in this tutorial:
 
 Take a look at your {% data variables.product.product_name %} profile and you'll see your work reflected on your contribution graph.
 
-For more information about the power of branches and pull requests, see "[AUTOTITLE](/get-started/quickstart/github-flow)." For more information about getting started with {% data variables.product.product_name %}, see the other guides in the [getting started quickstart](/get-started/quickstart).
+For more information about the power of branches and pull requests, see "[AUTOTITLE](/get-started/using-github/github-flow)." For more information about getting started with {% data variables.product.product_name %}, see the other guides in the [getting started quickstart](/get-started/quickstart).
