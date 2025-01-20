@@ -13106,6 +13106,11 @@
             },
             {
               "type": "string or null",
+              "name": "dismissed_comment",
+              "description": "<p>The dismissal comment associated with the dismissal of the alert.</p>"
+            },
+            {
+              "type": "string or null",
               "name": "dismissed_reason",
               "description": "<p>The reason for dismissing or closing the alert.</p>",
               "isRequired": true,
@@ -13115,6 +13120,11 @@
                 "used in tests",
                 null
               ]
+            },
+            {
+              "type": "null",
+              "name": "fixed_at",
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -13257,14 +13267,15 @@
               ]
             },
             {
-              "type": "string",
+              "type": "string or null",
               "name": "state",
-              "description": "<p>State of a code scanning alert.</p>",
+              "description": "<p>State of a code scanning alert. Events for alerts found outside the default branch will return a <code>null</code> value until they are dismissed or fixed.</p>",
               "isRequired": true,
               "enum": [
                 "open",
                 "dismissed",
-                "fixed"
+                "fixed",
+                null
               ]
             },
             {
@@ -13516,6 +13527,11 @@
             },
             {
               "type": "string or null",
+              "name": "dismissed_comment",
+              "description": "<p>The dismissal comment associated with the dismissal of the alert.</p>"
+            },
+            {
+              "type": "string or null",
               "name": "dismissed_reason",
               "description": "<p>The reason for dismissing or closing the alert.</p>",
               "isRequired": true,
@@ -13525,6 +13541,11 @@
                 "used in tests",
                 null
               ]
+            },
+            {
+              "type": "null",
+              "name": "fixed_at",
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -13848,7 +13869,7 @@
             {
               "type": "null",
               "name": "fixed_at",
-              "description": ""
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -14023,7 +14044,7 @@
             {
               "type": "string or null",
               "name": "state",
-              "description": "<p>State of a code scanning alert.</p>",
+              "description": "<p>State of a code scanning alert. Events for alerts found outside the default branch will return a <code>null</code> value until they are dismissed or fixed.</p>",
               "isRequired": true,
               "enum": [
                 "open",
@@ -14290,6 +14311,11 @@
             },
             {
               "type": "string or null",
+              "name": "dismissed_comment",
+              "description": "<p>The dismissal comment associated with the dismissal of the alert.</p>"
+            },
+            {
+              "type": "string or null",
               "name": "dismissed_reason",
               "description": "<p>The reason for dismissing or closing the alert.</p>",
               "isRequired": true,
@@ -14299,6 +14325,11 @@
                 "used in tests",
                 null
               ]
+            },
+            {
+              "type": "null",
+              "name": "fixed_at",
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -14471,12 +14502,13 @@
               ]
             },
             {
-              "type": "string",
+              "type": "string or null",
               "name": "state",
-              "description": "<p>State of a code scanning alert.</p>",
+              "description": "<p>State of a code scanning alert. Events for alerts found outside the default branch will return a <code>null</code> value until they are dismissed or fixed.</p>",
               "isRequired": true,
               "enum": [
-                "fixed"
+                "fixed",
+                null
               ]
             },
             {
@@ -14614,9 +14646,19 @@
             },
             {
               "type": "string or null",
+              "name": "dismissed_comment",
+              "description": "<p>The dismissal comment associated with the dismissal of the alert.</p>"
+            },
+            {
+              "type": "string or null",
               "name": "dismissed_reason",
               "description": "<p>The reason for dismissing or closing the alert. Can be one of: <code>false positive</code>, <code>won't fix</code>, and <code>used in tests</code>.</p>",
               "isRequired": true
+            },
+            {
+              "type": "null",
+              "name": "fixed_at",
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -14784,14 +14826,15 @@
               ]
             },
             {
-              "type": "string",
+              "type": "string or null",
               "name": "state",
-              "description": "<p>State of a code scanning alert.</p>",
+              "description": "<p>State of a code scanning alert. Events for alerts found outside the default branch will return a <code>null</code> value until they are dismissed or fixed.</p>",
               "isRequired": true,
               "enum": [
                 "open",
                 "dismissed",
-                "fixed"
+                "fixed",
+                null
               ]
             },
             {
@@ -14928,10 +14971,20 @@
               "isRequired": true
             },
             {
+              "type": "string or null",
+              "name": "dismissed_comment",
+              "description": "<p>The dismissal comment associated with the dismissal of the alert.</p>"
+            },
+            {
               "type": "null",
               "name": "dismissed_reason",
               "description": "<p>The reason for dismissing or closing the alert. Can be one of: <code>false positive</code>, <code>won't fix</code>, and <code>used in tests</code>.</p>",
               "isRequired": true
+            },
+            {
+              "type": "null",
+              "name": "fixed_at",
+              "description": "<p>The time that the alert was fixed in ISO 8601 format: <code>YYYY-MM-DDTHH:MM:SSZ</code>.</p>"
             },
             {
               "type": "string",
@@ -15074,13 +15127,14 @@
               ]
             },
             {
-              "type": "string",
+              "type": "string or null",
               "name": "state",
-              "description": "<p>State of a code scanning alert.</p>",
+              "description": "<p>State of a code scanning alert. Events for alerts found outside the default branch will return a <code>null</code> value until they are dismissed or fixed.</p>",
               "isRequired": true,
               "enum": [
                 "open",
-                "fixed"
+                "fixed",
+                null
               ]
             },
             {

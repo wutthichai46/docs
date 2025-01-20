@@ -33,7 +33,7 @@ Composite actions allow you to collect a series of workflow job steps into a sin
 
 Before you begin, you'll create a repository on {% data variables.product.github %}.
 
-1. Create a new public repository on {% data variables.product.github %}. You can choose any repository name, or use the following `hello-world-composite-action` example. You can add these files after your project has been pushed to {% data variables.product.product_name %}. For more information, see [AUTOTITLE](/repositories/creating-and-managing-repositories/creating-a-new-repository).
+1. Create a new public repository on {% data variables.product.github %}. You can choose any repository name, or use the following `hello-world-composite-action` example. You can add these files after your project has been pushed to {% data variables.product.github %}. For more information, see [AUTOTITLE](/repositories/creating-and-managing-repositories/creating-a-new-repository).
 
 1. Clone your repository to your computer. For more information, see [AUTOTITLE](/repositories/creating-and-managing-repositories/cloning-a-repository).
 
@@ -155,7 +155,7 @@ Before you begin, you'll create a repository on {% data variables.product.github
 
 The following workflow code uses the completed hello world action that you made in [AUTOTITLE](/actions/creating-actions/creating-a-composite-action#creating-an-action-metadata-file).
 
-Copy the workflow code into a `.github/workflows/main.yml` file in another repository, replacing `actions` and `SHA` with the repository owner and the SHA of the commit you want to use, respectively. You can also replace the `who-to-greet` input with your name.
+Copy the workflow code into a `.github/workflows/main.yml` file in another repository, replacing `OWNER` and `SHA` with the repository owner and the SHA of the commit you want to use, respectively. You can also replace the `who-to-greet` input with your name.
 
 ```yaml copy
 on: [push]
