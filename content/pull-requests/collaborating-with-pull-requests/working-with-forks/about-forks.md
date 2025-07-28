@@ -18,7 +18,7 @@ topics:
 
 {% data reusables.repositories.about-forks %} A fork can exist in either a personal account or an organization.
 
-When you view a forked repository on {% data variables.product.product_name %}, the upstream repository is indicated below the name of the fork.
+When you view a forked repository on {% data variables.product.github %}, the upstream repository is indicated below the name of the fork.
 
 ![Screenshot of a repository's page on GitHub. Below the name of the repository, "mona/docs", the text "forked from github/docs" is outlined in orange.](/assets/images/help/pull_requests/fork-path.png)
 
@@ -46,8 +46,9 @@ Forking a repository is similar to duplicating a repository, with the following 
 * Code pushed to a fork is visible to all repositories in the fork network, even after that fork is deleted.
 * You can use a pull request to suggest changes from your fork to the upstream repository.
 * You can bring changes from the upstream repository to your fork by synchronizing your fork with the upstream repository.
-* Forks have their own members, branches, tags, labels, policies, issues, pull requests, discussions, actions, projects, and wikis.
 * Forks inherit the restrictions of their upstream repositories. For example, branch protection rules cannot be passed down if the upstream repository belongs to an organization on a {% data variables.product.prodname_free_team %} plan.
+
+Like duplicated repositories, forks have their own members, branches, tags, labels, policies, issues, pull requests, discussions, actions, projects, and wikis.
 
 ## Further reading
 

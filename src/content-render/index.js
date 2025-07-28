@@ -1,6 +1,6 @@
-import { renderLiquid } from './liquid/index.js'
-import { renderUnified } from './unified/index.js'
-import { engine } from './liquid/engine.js'
+import { renderLiquid } from './liquid/index'
+import { renderMarkdown, renderUnified } from './unified/index'
+import { engine } from './liquid/engine'
 
 const globalCache = new Map()
 
@@ -26,6 +26,12 @@ export async function renderContent(template = '', context = {}, options = {}) {
   }
   try {
     template = await renderLiquid(template, context)
+    if (context.markdownRequested) {
+      const md = await renderMarkdown(template, context, options)
+
+      return md
+    }
+
     const html = await renderUnified(template, context, options)
     if (cacheKey) {
       globalCache.set(cacheKey, html)

@@ -1,6 +1,6 @@
 ---
 title: About pull requests
-intro: 'Learn about pull requests and draft pull requests on {% data variables.product.product_name %}. Pull requests communicate changes to a branch in a repository. Once a pull request is opened, you can review changes with collaborators and add follow-up commits.'
+intro: 'Learn about pull requests and draft pull requests on {% data variables.product.github %}. Pull requests communicate changes to a branch in a repository. Once a pull request is opened, you can review changes with collaborators and add follow-up commits.'
 redirect_from:
   - /github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests
   - /articles/using-pull-requests
@@ -49,8 +49,6 @@ After you're happy with the proposed changes, you can merge the pull request. If
 You can visit your dashboard to quickly find links to recently updated pull requests you're working on or subscribed to. See [AUTOTITLE](/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-personal-account-settings/about-your-personal-dashboard).
 
 ## Draft pull requests
-
-{% data reusables.gated-features.draft-prs %}
 
 When you create a pull request, you can choose to create a pull request that is ready for review or a draft pull request. Draft pull requests cannot be merged, and code owners are not automatically requested to review draft pull requests. See [AUTOTITLE](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) and [AUTOTITLE](/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork).
 

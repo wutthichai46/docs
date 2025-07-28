@@ -7,27 +7,26 @@ import timeout from 'connect-timeout'
 
 import { haltOnDroppedConnection } from './halt-on-dropped-connection'
 import abort from './abort'
-import morgan from 'morgan'
-import datadog from '@/observability/middleware/connect-datadog'
 import helmet from './helmet'
 import cookieParser from './cookie-parser'
 import {
   setDefaultFastlySurrogateKey,
   setLanguageFastlySurrogateKey,
-} from './set-fastly-surrogate-key.js'
+} from './set-fastly-surrogate-key'
 import handleErrors from '@/observability/middleware/handle-errors'
 import handleNextDataPath from './handle-next-data-path'
 import detectLanguage from '@/languages/middleware/detect-language'
 import reloadTree from './reload-tree'
 import context from './context/context'
-import shortVersions from '@/versions/middleware/short-versions.js'
+import shortVersions from '@/versions/middleware/short-versions'
 import languageCodeRedirects from '@/redirects/middleware/language-code-redirects'
 import handleRedirects from '@/redirects/middleware/handle-redirects'
-import findPage from './find-page.js'
+import findPage from './find-page'
 import blockRobots from './block-robots'
 import archivedEnterpriseVersionsAssets from '@/archives/middleware/archived-enterprise-versions-assets'
 import api from './api'
-import healthz from './healthz'
+import llmsTxt from './llms-txt'
+import healthcheck from './healthcheck'
 import manifestJson from './manifest-json'
 import buildInfo from './build-info'
 import reqHeaders from './req-headers'
@@ -63,20 +62,12 @@ import mockVaPortal from './mock-va-portal'
 import dynamicAssets from '@/assets/middleware/dynamic-assets'
 import generalSearchMiddleware from '@/search/middleware/general-search-middleware'
 import shielding from '@/shielding/middleware'
-import tracking from '@/tracking/middleware'
-import { MAX_REQUEST_TIMEOUT } from '@/frame/lib/constants.js'
+import { MAX_REQUEST_TIMEOUT } from '@/frame/lib/constants'
+import { initLoggerContext } from '@/observability/logger/lib/logger-context'
+import { getAutomaticRequestLogger } from '@/observability/logger/middleware/get-automatic-request-logger'
 
-const { DEPLOYMENT_ENV, NODE_ENV } = process.env
+const { NODE_ENV } = process.env
 const isTest = NODE_ENV === 'test' || process.env.GITHUB_ACTIONS === 'true'
-
-// By default, logging each request (with morgan), is on. And by default
-// it's off if you're in a production environment or running automated tests.
-// But if you set the env var, that takes precedence.
-const ENABLE_DEV_LOGGING = Boolean(
-  process.env.ENABLE_DEV_LOGGING
-    ? JSON.parse(process.env.ENABLE_DEV_LOGGING)
-    : !(DEPLOYMENT_ENV === 'azure' || isTest),
-)
 
 const ENABLE_FASTLY_TESTING = JSON.parse(process.env.ENABLE_FASTLY_TESTING || 'false')
 
@@ -107,24 +98,13 @@ export default function (app: Express) {
   //
   app.set('trust proxy', true)
 
-  // *** Request logging ***
-  if (ENABLE_DEV_LOGGING) {
-    app.use(morgan('dev'))
-  }
+  // *** Logging ***
+  app.use(initLoggerContext) // Context for both inline logs (e.g. logger.info) and automatic logs
+  app.use(getAutomaticRequestLogger()) // Automatic logging for all requests e.g. "GET /path 200"
 
-  // *** Observability ***
-  // This DD_API_KEY is only being used to determine if the target
-  // deployment environment is production. The key is not actually
-  // used for sending data. Afer migrating to Moda, we can remove
-  // the DD_API_KEY.
-  if (process.env.DD_API_KEY || process.env.MODA_PROD_SERVICE_ENV) {
-    app.use(datadog)
-  }
-
-  // Put this early to make it as fast as possible because it's used,
-  // and used very often, by the Azure load balancer to check the
-  // health of each node.
-  app.use('/healthz', healthz)
+  // Put this early to make it as fast as possible because it's used
+  // to check the health of each cluster.
+  app.use('/healthcheck', healthcheck)
 
   // Must appear before static assets and all other requests
   // otherwise we won't be able to benefit from that functionality
@@ -213,7 +193,6 @@ export default function (app: Express) {
   }
 
   // ** Possible early exits after cookies **
-  app.use(tracking)
 
   // *** Headers ***
   app.set('etag', false) // We will manage our own ETags if desired
@@ -244,6 +223,7 @@ export default function (app: Express) {
 
   // *** Rendering, 2xx responses ***
   app.use('/api', api)
+  app.use('/llms.txt', llmsTxt)
   app.get('/_build', buildInfo)
   app.get('/_req-headers', reqHeaders)
   app.use(asyncMiddleware(manifestJson))
@@ -265,7 +245,7 @@ export default function (app: Express) {
 
   // Specifically deal with HEAD requests before doing the slower
   // full page rendering.
-  app.head('/*', fastHead)
+  app.head('/*path', fastHead)
 
   // *** Preparation for render-page: contextualizers ***
   app.use(asyncMiddleware(secretScanning))
@@ -297,7 +277,7 @@ export default function (app: Express) {
   app.use(haltOnDroppedConnection)
 
   // *** Rendering, must go almost last ***
-  app.get('/*', asyncMiddleware(renderPage))
+  app.get('/*path', asyncMiddleware(renderPage))
 
   // *** Error handling, must go last ***
   app.use(handleErrors)

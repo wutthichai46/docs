@@ -22,16 +22,16 @@ redirect_from:
 
 ## About problems with SAML authentication
 
-{% data variables.product.product_name %} logs error messages for failed SAML authentication in the systemd journal logs for the `github-unicorn` container. You can review responses in this log, and you can also configure more verbose logging.
+{% data variables.product.prodname_ghe_server %} logs error messages for failed SAML authentication in the systemd journal logs for the `github-unicorn` container. You can review responses in this log, and you can also configure more verbose logging.
 
 For more information about SAML response requirements, see [AUTOTITLE](/admin/identity-and-access-management/using-saml-for-enterprise-iam/saml-configuration-reference#saml-response-requirements).
 
 ## Configuring SAML debugging
 
-You can configure {% data variables.product.product_name %} to write verbose debug logs for every SAML authentication attempt. You may be able to troubleshoot failed authentication attempts with this extra output.
+You can configure {% data variables.product.prodname_ghe_server %} to write verbose debug logs for every SAML authentication attempt. You may be able to troubleshoot failed authentication attempts with this extra output.
 
 > [!WARNING]
-> * Only enable SAML debugging temporarily, and disable debugging immediately after you finish troubleshooting. If you leave debugging enabled, the size of the logs increases much faster than usual, which can negatively impact the performance of {% data variables.product.product_name %}.
+> * Only enable SAML debugging temporarily, and disable debugging immediately after you finish troubleshooting. If you leave debugging enabled, the size of the logs increases much faster than usual, which can negatively impact the performance of {% data variables.product.prodname_ghe_server %}.
 > * Test new authentication settings for {% data variables.location.product_location %} in a staging environment before you apply the settings in your production environment. For more information, see [AUTOTITLE](/admin/installation/setting-up-a-github-enterprise-server-instance/setting-up-a-staging-instance).
 
 {% data reusables.enterprise-accounts.access-enterprise %}
@@ -54,9 +54,9 @@ base64 --decode ENCODED_OUTPUT
 
 ## Error: "Another user already owns the account"
 
-When a user signs into {% data variables.location.product_location %} for the first time with SAML authentication, {% data variables.product.product_name %} creates a user account on the instance and maps the SAML `NameID` and `nameid-format` to the account.
+When a user signs into {% data variables.location.product_location %} for the first time with SAML authentication, {% data variables.product.github %} creates a user account on the instance and maps the SAML `NameID` and `nameid-format` to the account.
 
-When the user signs in again, {% data variables.product.prodname_ghe_server %} compares the account's `NameID` and `nameid-format` mapping to the IdP's response. If the `NameID` or `nameid-format` in the IdP's response no longer matches the values that {% data variables.product.product_name %} expects for the user, the sign-in will fail. The user will see the following message.
+When the user signs in again, {% data variables.product.prodname_ghe_server %} compares the account's `NameID` and `nameid-format` mapping to the IdP's response. If the `NameID` or `nameid-format` in the IdP's response no longer matches the values that {% data variables.product.github %} expects for the user, the sign-in will fail. The user will see the following message.
 
 > Another user already owns the account. Please have your administrator check the authentication log.
 
@@ -84,7 +84,7 @@ If your IdP does not sign the SAML response, or the signature does not match the
 SAML Response is not signed or has been modified.
 ```
 
-Ensure that you configure signed assertions for the {% data variables.product.product_name %} application on your IdP.
+Ensure that you configure signed assertions for the {% data variables.product.github %} application on your IdP.
 
 ## Error: "Audience is invalid" or "No assertion found"
 
@@ -98,6 +98,14 @@ Ensure that you set the value for `Audience` on your IdP to the `EntityId` for {
 {% endif %}
 
 {% data reusables.saml.current-time-earlier-than-notbefore-condition %}
+
+{% ifversion ghes > 3.16 %}
+
+## Error: "failure - Updated SAML validation returned an invalid result"
+
+This error can occur in version 3.17.0 or later of {% data variables.location.product_location %}. It indicates that {% data variables.product.github %} is unable to properly process the SAML response it received from the identity provider. Please open a {% data variables.product.github %} support ticket so that the {% data variables.product.github %} Support and Engineering teams can investigate and address the issue.
+
+{% endif %}
 
 {% ifversion ghec %}
 {% data reusables.saml.authentication-loop %}

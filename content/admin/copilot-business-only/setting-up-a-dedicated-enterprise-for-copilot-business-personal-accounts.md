@@ -12,7 +12,7 @@ redirect_from:
   - /early-access/copilot/using-copilot-business-without-github-enterprise-personal-accounts
 ---
 
-You can use an enterprise account to manage licenses for {% data variables.product.prodname_copilot_for_business %}, without adopting {% data variables.product.prodname_enterprise %}.
+You can use an enterprise account to manage licenses for {% data variables.copilot.copilot_for_business %}, without adopting {% data variables.product.prodname_enterprise %}.
 
 This article describes the setup for an **enterprise with personal accounts**. If you haven't chosen an enterprise type, see [AUTOTITLE](/admin/copilot-business-only/about-enterprise-accounts-for-copilot-business).
 
@@ -44,9 +44,9 @@ You can also invite a user as a billing manager. A billing manager can view the 
 
 You can configure SAML single sign-on to require users to authenticate to an external identity management system in addition to their personal account. See [AUTOTITLE](/admin/identity-and-access-management/using-saml-for-enterprise-iam/configuring-saml-single-sign-on-for-your-enterprise).
 
-## Linking an Azure subscription
+## Adding a payment method
 
-{% data reusables.copilot-business-for-non-ghe.link-azure-subscription %}
+{% data reusables.copilot-business-for-non-ghe.add-payment-method %}
 
 ## Enabling {% data variables.product.prodname_copilot_short %} for the enterprise
 

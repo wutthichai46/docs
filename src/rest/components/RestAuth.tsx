@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 
-import { useTranslation } from 'src/languages/components/useTranslation'
-import { DEFAULT_VERSION, useVersion } from 'src/versions/components/useVersion'
-import { Link } from 'src/frame/components/Link'
+import { useTranslation } from '@/languages/components/useTranslation'
+import { DEFAULT_VERSION, useVersion } from '@/versions/components/useVersion'
+import { Link } from '@/frame/components/Link'
 import { ProgAccessT } from './types'
 
 // Documentation paths may be moved around by content team in the future
@@ -32,7 +32,7 @@ export function RestAuth({ progAccess, slug, operationTitle }: Props) {
   // For those operations, we shouldn't display this component
   if (!progAccess) return null
   const { userToServerRest, serverToServer, fineGrainedPat, basicAuth = false } = progAccess
-  const noFineGrainedAcccess = !(userToServerRest || serverToServer || fineGrainedPat)
+  const noFineGrainedAccess = !(userToServerRest || serverToServer || fineGrainedPat)
 
   const heading = basicAuth ? t('basic_auth_heading') : t('fine_grained_access')
   const headingId = heading.replace('{{ RESTOperationTitle }}', operationTitle)
@@ -45,7 +45,7 @@ export function RestAuth({ progAccess, slug, operationTitle }: Props) {
       <h3 className="mt-4 mb-3 pt-3 h4" id={authSlug}>
         <a href={`#${authSlug}`}>{headingId}</a>
       </h3>
-      {noFineGrainedAcccess ? (
+      {noFineGrainedAccess ? (
         <NoFineGrainedAccess basicAuth={basicAuth} />
       ) : (
         <FineGrainedAccess progAccess={progAccess} />

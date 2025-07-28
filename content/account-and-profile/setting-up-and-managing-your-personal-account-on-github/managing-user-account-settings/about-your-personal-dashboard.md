@@ -32,14 +32,9 @@ In the "Recent activity" section of your news feed, you can quickly find and fol
 
 ## Finding your top repositories and teams
 
-{% ifversion global-nav-update %}
 In the global navigation menu, you can access the top repositories and teams you use. To open the menu, select {% octicon "three-bars" aria-label="Open global navigation menu" %} at the top left of any page.
 
   ![Screenshot of the navigation bar on {% data variables.product.github %}. The "Open global navigation menu" icon is outlined in dark orange.](/assets/images/help/navigation/global-navigation-menu-icon.png)
-
-{% else %}
-In the left sidebar of your dashboard, you can access the top repositories and teams you use.
-{% endif %}
 
 The list of top repositories is automatically generated, and can include any repository you have interacted with, whether it's owned directly by your account or not. Interactions include making commits and opening or commenting on issues and pull requests. The list of top repositories cannot be edited, but repositories will drop off the list 1 year after you last interacted with them.
 
@@ -54,7 +49,7 @@ You can also find a list of your recently visited repositories, teams, and proje
 
 The feed is designed to help you discover relevant content from projects you follow, keep up with your friends and community members, and track recent activity in your communities.
 
-You can use the **{% octicon "filter" aria-hidden="true" %} Filter** dropdown in the upper right corner to filter the feed to show only the exact event types you'd like to see. For example, you'll see updates when someone you follow:
+You can use the **{% octicon "filter" aria-hidden="true" aria-label="filter" %} Filter** dropdown in the upper right corner to filter the feed to show only the exact event types you'd like to see. For example, you'll see updates when someone you follow:
 
 * Stars a repository
 * Follows another user
@@ -98,10 +93,6 @@ This feed shows activity and recommendations based on your network on {% data va
 * Organizations you follow
 
 {% endif %}
-
-## Exploring recommended repositories
-
-In the "Explore repositories" section on the right side of your dashboard, you can explore recommended repositories in your communities. Recommendations are based on repositories you've starred or visited, the people you follow, and activity within repositories that you have access to.{% ifversion fpt or ghec %} For more information, see [AUTOTITLE](/get-started/exploring-projects-on-github/finding-ways-to-contribute-to-open-source-on-github).{% endif %}
 
 ## Further reading
 
